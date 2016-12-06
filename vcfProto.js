@@ -36,14 +36,14 @@ vcfProto.UI=function(div){
     var someVCFurl = 'https://mathbiol.github.io/vcfProto/someMRSA.vcf'
 
     // assemble UI
-    var h ='<h3>Converting a VCF file into a JSON favored prototype call, <a href="https://github.com/mathbiol/vcfProto" style="color:blue" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></h3>'
+    var h ='<h3>Converting a <a href="http://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/" target="_blank">VCF file</a> into a JSON flavored prototype call, <a href="https://github.com/mathbiol/vcfProto" style="color:blue" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></h3>'
     h += '<hr>'
-    h += 'Prototype sequence: [<a href="https://www.ncbi.nlm.nih.gov/nuccore/87125858" target="_blank">Gene Bank Entry</a>] [<a href="https://mathbiol.github.io/vcfProto/GenBank_CP000255.txt" target="_blank">fastA (full sequence)</a>] [<a href="https://www.ncbi.nlm.nih.gov/pubmed/16517273" target="_blank">Lancet. 2006 Mar 4;367(9512):731-9</a>]'
+    h += 'Base sequence: [<a href="https://www.ncbi.nlm.nih.gov/nuccore/87125858" target="_blank">Gene Bank Entry</a>] [<a href="https://mathbiol.github.io/vcfProto/GenBank_CP000255.txt" target="_blank">fastA (full sequence)</a>] [<a href="https://www.ncbi.nlm.nih.gov/pubmed/16517273" target="_blank">Lancet. 2006 Mar 4;367(9512):731-9</a>]'
     h += '<br>Genomic variation: <input id="vcfUrlInput" size="50" style="color:blue">'
     h += '<hr>'
-    h += '<div id="vcfTxtDiv"><b>VCF text</b> [<span id="vcfTxtShowHide" style="color:blue">hide</span>]:<pre id="vcfTxtPre">...</pre></div>'
+    h += '<div id="vcfTxtDiv"><b>VCF text source</b> [<span id="vcfTxtShowHide" style="color:blue">hide</span>]:<pre id="vcfTxtPre">...</pre></div>'
     h += '<hr>'
-    h += '<div id="vcfJsonDiv"><b>VCF JSON</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<pre id="vcfJsonPre">...</pre></div>'
+    h += '<div id="vcfJsonDiv"><b>VCF JSON call to prototypic base</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<pre id="vcfJsonPre">...</pre></div>'
     h += '<hr>'
     h += '<button id="vcfJsonDownload">Download JSON</button>'
     div.innerHTML=h
