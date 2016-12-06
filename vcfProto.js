@@ -14,22 +14,17 @@ vcfProto=function(url,fun){
          var vcf = VCF.parse(x)
          var vcfProto = {
              id:url,
-             base:""
-             //id:src.id,
-             //base:src.base
-
+             base:"https://mathbiol.github.io/vcfProto/GenBank_CP000255.txt"
          }
          // add
-         vcfProto.add={
-             //head:vcf.head,
-             //body:vcf.body
+         vcfProto.remAll={
          }
-         vcf.fields.slice(3,-1).forEach(function(prop){
-             //vcfProto.add[prop]=vcf.body[prop]
-             vcf.body[prop].forEach(function(val,i){
-                 var id = vcf.body.CHROM[i]+'.'+vcf.body.POS[i]+'.'+prop
-                 vcfProto.add[id]=val
-             })
+         vcfProto.add={
+         }
+         vcf.body.CHROM.forEach(function(ch,i){
+             var id = vcf.body.CHROM[i]+'.'+vcf.body.POS[i]
+             vcfProto.remAll[id]=vcf.body.REF[i]
+             vcfProto.add[id]=vcf.body.ALT[i]
          })
          4
          fun(vcfProto)
@@ -39,11 +34,12 @@ vcfProto=function(url,fun){
 vcfProto.UI=function(div){
     var div = document.getElementById('vcfProtoDiv')
     var someVCFurl = 'https://mathbiol.github.io/vcfProto/someMRSA.vcf'
-    
+
     // assemble UI
     var h ='<h3>Converting a VCF file into a JSON favored prototype call, <a href="https://github.com/mathbiol/vcfProto" style="color:blue" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></h3>'
     h += '<hr>'
-    h += 'Source file: <input id="vcfUrlInput" size="50" style="color:blue">'
+    h += 'Prototype sequence: [<a href="https://www.ncbi.nlm.nih.gov/nuccore/87125858" target="_blank">Gene Bank Entry</a>] [<a href="https://mathbiol.github.io/vcfProto/GenBank_CP000255.txt" target="_blank">fastA (full sequence)</a>] [<a href="https://www.ncbi.nlm.nih.gov/pubmed/16517273" target="_blank">Lancet. 2006 Mar 4;367(9512):731-9</a>]'
+    h += '<br>Genomic variation: <input id="vcfUrlInput" size="50" style="color:blue">'
     h += '<hr>'
     h += '<div id="vcfTxtDiv"><b>VCF text</b> [<span id="vcfTxtShowHide" style="color:blue">hide</span>]:<pre id="vcfTxtPre">...</pre></div>'
     h += '<hr>'
@@ -76,8 +72,5 @@ vcfProto.UI=function(div){
             pre.hidden=false
         }
     }
-            
+
 }
-
-
-
