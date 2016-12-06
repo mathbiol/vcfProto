@@ -17,13 +17,13 @@ vcfProto=function(url,fun){
              base:"https://mathbiol.github.io/vcfProto/GenBank_CP000255.txt"
          }
          // add
-         vcfProto.remAll={
+         vcfProto.rem={
          }
          vcfProto.add={
          }
          vcf.body.CHROM.forEach(function(ch,i){
              var id = vcf.body.CHROM[i]+'.'+vcf.body.POS[i]
-             vcfProto.remAll[id]=vcf.body.REF[i]
+             vcfProto.rem[id]=vcf.body.REF[i]
              vcfProto.add[id]=vcf.body.ALT[i]
          })
          4
