@@ -30,7 +30,7 @@ vcfProto.UI=function(div){
     var someVCFurl = 'https://mathbiol.github.io/vcfProto/someMRSA.vcf'
     
     // assemble UI
-    var h ='<h3>Converting a VCF file into a JSON favored prototype call</h3>'
+    var h ='<h3>Converting a VCF file into a JSON favored prototype call, <a href="https://github.com/mathbiol/vcfProto" style="color:blue" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></h3>'
     h += '<hr>'
     h += 'Source file: <input id="vcfUrlInput" size="50" style="color:blue">'
     h += '<hr>'
