@@ -7,20 +7,27 @@ vcfProto=function(url,fun){
         console.log('prototype extracted from '+url,vp)
     }
     var src={}
-    src.base=url.match(/.+\//)[0] || ""
-    src.id=url.slice(src.base.length)
-    $.get(src.id)
+    //src.base=url.match(/.+\//)[0] || ""
+    //src.id=url.slice(src.base.length)
+    $.get(url)
      .then(function(x){
          var vcf = VCF.parse(x)
          var vcfProto = {
-             id:src.id,
-             base:src.base
+             id:url,
+             base:""
+             //id:src.id,
+             //base:src.base
+
          }
          // add
          vcfProto.add={
-             head:vcf.head,
-             body:vcf.body
+             //head:vcf.head,
+             //body:vcf.body
          }
+         vcf.fields.slice(0,-1).forEach(function(prop){
+             vcfProto.add[prop]=vcf.body[prop]
+         })
+         4
          fun(vcfProto)
      })
 }
@@ -51,7 +58,7 @@ vcfProto.UI=function(div){
             var jsonTxt=JSON.stringify(vp,null,2)
             vcfJsonPre.textContent=jsonTxt
             vcfJsonDownload.onclick=function(){
-                jmat.saveFile(jsonTxt,vp.id)
+                jmat.saveFile(jsonTxt,vp.id.slice(vp.id.match(/.+\//)[0].length))
             }
          })
      })
