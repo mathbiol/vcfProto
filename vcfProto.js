@@ -38,6 +38,7 @@ vcfProto.UI=function(div){
     h += '<hr>'
     h += '<div id="vcfJsonDiv"><b>VCF JSON</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<pre id="vcfJsonPre">...</pre></div>'
     h += '<hr>'
+    h += '<button id="vcfJsonDownload">Download JSON</button>'
     div.innerHTML=h
     vcfUrlInput.value=someVCFurl
     vcfTxtPre.style.fontSize="8"
@@ -45,9 +46,13 @@ vcfProto.UI=function(div){
     $.get(someVCFurl)
      .then(function(x){
          vcfTxtPre.textContent=x
-         var vp = vcfProto(someVCFurl,function(vp){
+         vcfProto(someVCFurl,function(vp){
             console.log('prototype extracted from '+someVCFurl,vp)
-            vcfJsonPre.textContent=JSON.stringify(vp,null,3)
+            var jsonTxt=JSON.stringify(vp,null,2)
+            vcfJsonPre.textContent=jsonTxt
+            vcfJsonDownload.onclick=function(){
+                jmat.saveFile(jsonTxt,vp.id)
+            }
          })
      })
     vcfTxtShowHide.onclick=vcfJsonShowHide.onclick=function(){
@@ -59,11 +64,8 @@ vcfProto.UI=function(div){
             this.textContent='hide'
             pre.hidden=false
         }
-        4
     }
-    4
-
-    
+            
 }
 
 
