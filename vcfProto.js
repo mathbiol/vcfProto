@@ -24,8 +24,12 @@ vcfProto=function(url,fun){
              //head:vcf.head,
              //body:vcf.body
          }
-         vcf.fields.slice(0,-1).forEach(function(prop){
-             vcfProto.add[prop]=vcf.body[prop]
+         vcf.fields.slice(3,-1).forEach(function(prop){
+             //vcfProto.add[prop]=vcf.body[prop]
+             vcf.body[prop].forEach(function(val,i){
+                 var id = vcf.body.CHROM[i]+'.'+vcf.body.POS[i]+'.'+prop
+                 vcfProto.add[id]=val
+             })
          })
          4
          fun(vcfProto)
