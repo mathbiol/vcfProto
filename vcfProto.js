@@ -50,6 +50,8 @@ vcfProto.UI=function(div){
     vcfUrlInput.value=someVCFurl
     vcfTxtPre.style.fontSize="8"
     vcfTxtPre.style.color="green"
+    vcfJsonPre.style.fontSize="9"
+    vcfJsonPre.style.color="navy"
     $.get(someVCFurl)
      .then(function(x){
          vcfTxtPre.textContent=x
