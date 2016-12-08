@@ -34,6 +34,19 @@ vcfProto=function(url,fun){
 vcfProto.UI=function(div){
     var div = document.getElementById('vcfProtoDiv')
     var someVCFurl = 'https://mathbiol.github.io/vcfProto/someMRSA.vcf'
+    vcfProto.UI.clickPos=function(that){
+        console.log(that)
+        geneBrowser.hidden=false
+        geneBrowser.height="1800px"
+        geneBrowser.width="800px"
+        geneBrowser.parentNode.style.verticalAlign="top"
+        var pos=that.textContent.match(/\.[^\.]+$/)[0].slice(1)
+        geneBrowser.src='https://www.ncbi.nlm.nih.gov/nuccore/87125858?report=graph&mk='+pos+'|'+pos+'&v='+pos+':'+pos
+        4
+    }
+    vcfProto.UI.overPos=function(that){
+        that.style.cursor='pointer'
+    }
 
     // assemble UI
     var h ='<h3>Converting a <a href="http://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/" target="_blank">VCF file</a> into a JSON flavored prototype call, <a href="https://github.com/mathbiol/vcfProto" style="color:blue" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a></h3>'
@@ -43,10 +56,11 @@ vcfProto.UI=function(div){
     h += '<hr>'
     h += '<div id="vcfTxtDiv"><b>VCF text source</b> [<span id="vcfTxtShowHide" style="color:blue">hide</span>]:<pre id="vcfTxtPre">...</pre></div>'
     h += '<hr>'
-    h += '<div id="vcfJsonDiv"><b>VCF JSON call to prototypic base</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<pre id="vcfJsonPre">...</pre></div>'
+    h += '<div id="vcfJsonDiv"><b>VCF JSON call to prototypic base</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<table><tr><td><pre id="vcfJsonPre">...</pre></td><td><iframe id="geneBrowser" hidden="true" src="https://www.ncbi.nlm.nih.gov/nuccore/87125858?report=graph"></td></tr></table></div>'
     h += '<hr>'
     h += '<button id="vcfJsonDownload">Download JSON</button>'
     div.innerHTML=h
+
     vcfUrlInput.value=someVCFurl
     vcfTxtPre.style.fontSize="8"
     vcfTxtPre.style.color="green"
@@ -58,7 +72,7 @@ vcfProto.UI=function(div){
          vcfProto(someVCFurl,function(vp){
             console.log('prototype extracted from '+someVCFurl,vp)
             var jsonTxt=JSON.stringify(vp,null,2)
-            vcfJsonPre.textContent=jsonTxt
+            vcfJsonPre.innerHTML=jsonTxt.replace(/(CP00025[^\"]+)/g,'<span style="color:blue" onmouseover="vcfProto.UI.overPos(this)" onclick="vcfProto.UI.clickPos(this)">$1</span>')
             vcfJsonDownload.onclick=function(){
                 jmat.saveFile(jsonTxt,vp.id.slice(vp.id.match(/.+\//)[0].length))
             }
