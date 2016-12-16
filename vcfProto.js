@@ -42,6 +42,7 @@ vcfProto.UI=function(div){
         geneBrowser.parentNode.style.verticalAlign="top"
         var pos=that.textContent.match(/\.[^\.]+$/)[0].slice(1)
         geneBrowser.src='https://www.ncbi.nlm.nih.gov/nuccore/87125858?report=graph&mk='+pos+'|'+pos+'&v='+pos+':'+pos
+        vcfMutation.innerHTML='<span style="color:blue">'+that.textContent+'</span>: <span style="color:green">' + vcfProto.vp.rem[that.textContent] + '</span> <i class="fa fa-long-arrow-right" style="color:red" aria-hidden="true"></i> <span style="color:green">' + vcfProto.vp.add[that.textContent] + '</span>'
         4
     }
     vcfProto.UI.overPos=function(that){
@@ -56,7 +57,7 @@ vcfProto.UI=function(div){
     h += '<hr>'
     h += '<div id="vcfTxtDiv"><b>VCF text source</b> [<span id="vcfTxtShowHide" style="color:blue">hide</span>]:<pre id="vcfTxtPre">...</pre></div>'
     h += '<hr>'
-    h += '<div id="vcfJsonDiv"><b>VCF JSON call to prototypic base</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<table><tr><td><pre id="vcfJsonPre">...</pre></td><td><iframe id="geneBrowser" hidden="true" src="https://www.ncbi.nlm.nih.gov/nuccore/87125858?report=graph"></td></tr></table></div>'
+    h += '<div id="vcfJsonDiv"><b>VCF JSON call to prototypic base</b> [<span id="vcfJsonShowHide" style="color:blue">hide</span>]:<table><tr><td><pre id="vcfJsonPre">...</pre></td><td><div id="vcfMutation" style="background-color:yellow"></div><iframe id="geneBrowser" hidden="true" src="https://www.ncbi.nlm.nih.gov/nuccore/87125858?report=graph"></td></tr></table></div>'
     h += '<hr>'
     h += '<button id="vcfJsonDownload">Download JSON</button>'
     div.innerHTML=h
@@ -70,6 +71,7 @@ vcfProto.UI=function(div){
      .then(function(x){
          vcfTxtPre.textContent=x
          vcfProto(someVCFurl,function(vp){
+            vcfProto.vp=vp
             console.log('prototype extracted from '+someVCFurl,vp)
             var jsonTxt=JSON.stringify(vp,null,2)
             vcfJsonPre.innerHTML=jsonTxt.replace(/(CP00025[^\"]+)/g,'<span style="color:blue" onmouseover="vcfProto.UI.overPos(this)" onclick="vcfProto.UI.clickPos(this)">$1</span>')
